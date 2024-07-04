@@ -75,3 +75,4 @@ function createDescription () {
   }
   return photoDB;
 }
+createDescription ();

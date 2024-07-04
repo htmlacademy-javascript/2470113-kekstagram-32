@@ -1,4 +1,4 @@
-const photoDescription = ['Вся красота мира в одной картинке',
+const photoDescriptions = ['Вся красота мира в одной картинке',
   'Моменты, которые запечатлены навсегда',
   'Счастье в каждом кадре',
   'Когда слова не нужны, достаточно фотографии',
@@ -68,7 +68,7 @@ function createDescription () {
     const photo = {};
     photo.id = i;
     photo.url = `photos/${i }.jpg`;
-    photo.description = photoDescription[getRandomInt(0, photoDescription.length)];
+    photo.description = photoDescriptions[getRandomInt(0, photoDescriptions.length)];
     photo.likes = getRandomInt(15, 200);
     photo.comments = createComment();
     photoDB.push(photo);

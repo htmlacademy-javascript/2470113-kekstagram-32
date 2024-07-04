@@ -55,7 +55,7 @@ const commentId = createRandomId(1, PHOTO_NUMBER * MAX_COMMENT_NUMBER + 1);
 /* генерируем массив со случайным числом комментов */
 function createComment() {
   const comments = [];
-  for(let i = 0; i <= getRandomInt(0,MAX_COMMENT_NUMBER + 1);i++) {
+  for(let i = 1; i <= getRandomInt(0,MAX_COMMENT_NUMBER + 1);i++) {
     const comment = {};
     comment.id = commentId();
     comment.avatar = `img/avatar-${getRandomInt(1, 7)}.svg`;

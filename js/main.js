@@ -1,3 +1,5 @@
+/* мапы для заполнения */
+const PHOTO_NUMBER = 25;
 const photoDescriptions = ['Вся красота мира в одной картинке',
   'Моменты, которые запечатлены навсегда',
   'Счастье в каждом кадре',
@@ -26,12 +28,13 @@ const commentTexts = ['Всё отлично!',
 
 const names = ['Алиса','Владимир','Ибрагим','Дмитрий','Михаил','Аделина','Таисия','София','Тимофей','Егор','Кирилл','Лев','Валерия','Георгий','Андрей','Максим','Евгения','Матвей','Ксения','Анастасия','Ульяна','Дарья','Амина','Сабина','Артём','Мария','Варвара','Ян','Александра','Дарина','Елена','Иван','Степан','Евгений','Руслан','Арина','Алексей','Татьяна','Константин','Маргарита','Фатима','Анна','Алия','Ева','Виктория','Григорий','Герман','Елизавета','Ярослав','Роман'];
 
+/* функция для случайного целого числа */
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min); // Максимум не включается, минимум включается
 }
-
+/* генерируем случайный неповторяющийся ID коммента*/
 function createRandomId (min, max) {
   const previousValues = [];
 
@@ -48,7 +51,7 @@ function createRandomId (min, max) {
   };
 }
 const commentId = createRandomId(1, 1254);
-
+/* генерируем массив со случайным числом комментов */
 function createComment() {
   const comments = [];
   for(let i = 0; i <= getRandomInt(0,30);i++) {
@@ -61,10 +64,10 @@ function createComment() {
   }
   return comments;
 }
-
+/* Генерируем описание фото и собираем их воедино в массив*/
 function createDescription () {
   const photoDB = [];
-  for(let i = 1; i <= 25; i++) {
+  for(let i = 1; i <= PHOTO_NUMBER; i++) {
     const photo = {};
     photo.id = i;
     photo.url = `photos/${i }.jpg`;

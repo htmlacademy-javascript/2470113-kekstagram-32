@@ -1,5 +1,6 @@
 /* мапы для заполнения */
 const PHOTO_NUMBER = 25;
+const MAX_COMMENT_NUMBER = 30;
 const PHOTO_DESCRIPTIONS = ['Вся красота мира в одной картинке',
   'Моменты, которые запечатлены навсегда',
   'Счастье в каждом кадре',
@@ -50,7 +51,7 @@ function createRandomId (min, max) {
     return currentValue;
   };
 }
-const commentId = createRandomId(1, 1254);
+const commentId = createRandomId(1, PHOTO_NUMBER * MAX_COMMENT_NUMBER);
 /* генерируем массив со случайным числом комментов */
 function createComment() {
   const comments = [];

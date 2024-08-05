@@ -3,8 +3,8 @@ import {getRandomInt} from './getRandomInt.js';
 import {createComment} from './createComment.js';
 
 /* Генерируем описание фото и собираем их воедино в массив*/
+const photoDB = [];
 function createDescription () {
-  const photoDB = [];
   for(let i = 1; i <= PHOTO_NUMBER; i++) {
     const photo = {};
     photo.id = i;
@@ -16,4 +16,5 @@ function createDescription () {
   }
   return photoDB;
 }
-export {createDescription};
+createDescription ();
+export {photoDB};

@@ -1,6 +1,9 @@
 import './getRandomInt.js';
 import './createRandomId.js';
 import './createComment.js';
-import './createDescription.js';
+import './createPhotoDB.js';
 import './data.js';
 import './generatePhotos.js';
+import './displayBigPicture.js';
+import './clearCommentsList.js';
+import './commentsLoading.js';

@@ -7,3 +7,5 @@ import './generatePhotos.js';
 import './displayBigPicture.js';
 import './clearCommentsList.js';
 import './commentsLoading.js';
+import './formHandler.js';
+import './closeOverlay.js';

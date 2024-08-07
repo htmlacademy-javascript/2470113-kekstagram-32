@@ -3,19 +3,6 @@ import { PHOTOS_LIST, BIG_PICTURE } from './data.js';
 import { clearCommentsList } from './clearCommentsList.js';
 import { commentsGenerating } from './commentsLoading.js';
 
-/* добавляем кнопку закрытия */
-BIG_PICTURE.querySelector('.cancel').addEventListener('click', () => {
-  BIG_PICTURE.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
-});
-/* добавляем закрытие по Esc */
-document.addEventListener('keydown', (evt) => {
-  if (evt.keyCode === 27) {
-    BIG_PICTURE.classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
-  }
-});
-
 /* создаем обработчик события для миниатюр */
 function onPhotosListClick (evt) {
   if (evt.target.matches('img')) {

@@ -5,7 +5,7 @@ import { commentsGenerating } from './commentsLoading.js';
 
 /* создаем обработчик события для миниатюр */
 function onPhotosListClick (evt) {
-  if (evt.target.matches('img')) {
+  if (evt.target.matches('img.picture__img')) {
     evt.preventDefault();
     document.querySelector('body').classList.add('modal-open');
     /* cвязываем миниатюры с базой данных по добавленному ID */

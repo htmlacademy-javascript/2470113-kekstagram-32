@@ -1,4 +1,3 @@
-import {addCloseEsc} from './closeOverlay.js';
 const imageUploader = document.querySelector('#upload-file');
 const imageOverlay = document.querySelector('.img-upload__overlay');
 const textUpload = imageOverlay.querySelector('.img-upload__text');
@@ -6,16 +5,11 @@ const textUpload = imageOverlay.querySelector('.img-upload__text');
 /* загружаем картинку и открываем окно предпросмотра */
 imageUploader.oninput = function () {
   imageOverlay.classList.remove('hidden');
+  document.querySelector('body').classList.add('modal-open');
   /* подставляем загруженную картинку в предпросмотр */
-  imageOverlay.querySelector('img').src = imageUploader.value;
+  /* imageOverlay.querySelector('img').src = imageUploader.value; */
 };
 
-/* отменяем выход по Esc на полях формы. Не работает
-textUpload.querySelector('.text__hashtags').removeEventListener('focus', addCloseEsc); */
-
-/* document.querySelector('.text__hashtags').addEventListener('focus', (evt) => {
-  evt.stopPropagation();
-}); */
 
 /* создаем конфиг валидатора */
 const pristine = new Pristine (textUpload, {

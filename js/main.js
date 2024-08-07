@@ -9,3 +9,4 @@ import './clearCommentsList.js';
 import './commentsLoading.js';
 import './formHandler.js';
 import './closeOverlay.js';
+import './addSlider.js';

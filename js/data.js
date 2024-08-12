@@ -30,5 +30,10 @@ const COMMENT_TEXTS = ['Всё отлично!',
 const NAMES = ['Алиса','Владимир','Ибрагим','Дмитрий','Михаил','Аделина','Таисия','София','Тимофей','Егор','Кирилл','Лев','Валерия','Георгий','Андрей','Максим','Евгения','Матвей','Ксения','Анастасия','Ульяна','Дарья','Амина','Сабина','Артём','Мария','Варвара','Ян','Александра','Дарина','Елена','Иван','Степан','Евгений','Руслан','Арина','Алексей','Татьяна','Константин','Маргарита','Фатима','Анна','Алия','Ева','Виктория','Григорий','Герман','Елизавета','Ярослав','Роман'];
 
 const TEMPLATE = document.querySelector('#picture').content;
+const PHOTOS_LIST = document.querySelector('section.pictures');
+const BIG_PICTURE = document.querySelector('.big-picture');
+const COMMENT_TEMPLATE = BIG_PICTURE.querySelector('.social__comment');
+const COMMENTS_LIST = BIG_PICTURE.querySelector('.social__comments');
+const imageUploader = document.querySelector('#upload-file');
 
-export {PHOTO_NUMBER, MAX_COMMENT_NUMBER, PHOTO_DESCRIPTIONS, COMMENT_TEXTS, NAMES, TEMPLATE};
+export {PHOTO_NUMBER, MAX_COMMENT_NUMBER, PHOTO_DESCRIPTIONS, COMMENT_TEXTS, NAMES, TEMPLATE, PHOTOS_LIST, BIG_PICTURE, COMMENT_TEMPLATE, COMMENTS_LIST, imageUploader};

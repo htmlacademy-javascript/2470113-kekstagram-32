@@ -25,6 +25,7 @@ function addCloseEsc (evt) {
     }
   }
 }
+
 document.addEventListener('keydown', addCloseEsc);
 
 /* Добавляем кнопку закрытия и сброс данных для окна загрузки */

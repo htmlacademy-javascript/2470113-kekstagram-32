@@ -1,15 +1,20 @@
 const imageUploader = document.querySelector('#upload-file');
 const imageOverlay = document.querySelector('.img-upload__overlay');
 const textUpload = imageOverlay.querySelector('.img-upload__text');
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const submitButton = document.querySelector('#upload-submit');
 
-/* загружаем картинку и открываем окно предпросмотра */
-imageUploader.oninput = function () {
-  imageOverlay.classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
-  /* подставляем загруженную картинку в предпросмотр */
-  /* imageOverlay.querySelector('img').src = imageUploader.value; */
-};
-
+/* Проверяем файл */
+imageUploader.addEventListener('change', () => {
+  const file = imageUploader.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if(matches) {
+    imageOverlay.querySelector('img').src = URL.createObjectURL(file);
+    imageOverlay.classList.remove('hidden');
+    document.querySelector('body').classList.add('modal-open');
+  }
+});
 
 /* создаем конфиг валидатора */
 const pristine = new Pristine (textUpload, {
@@ -25,7 +30,7 @@ const pristine = new Pristine (textUpload, {
 });
 
 /* проверяем хэштеги по регулярке */
-function validateHashtags(value) {
+function validateHashtag(value) {
   /* превращаем строку ввода в массив */
   const hashtagsMassive = value.split(' ');
   let result = true;
@@ -33,25 +38,45 @@ function validateHashtags(value) {
   for(let i = 0; i < hashtagsMassive.length; i++) {
     const hashtag = /^#[a-zа-яё0-9]{0,19}$/i;
     if(!hashtag.test(hashtagsMassive[i])) {
+      imageOverlay.querySelector('#upload-submit').disabled = true;
       result = false;
+    } else {
+      imageOverlay.querySelector('#upload-submit').disabled = false;
     }
-  }
-  /* проверяем на дубликаты */
-  hashtagsMassive.filter((number, index, numbers) => {
-    if(numbers.indexOf(number) !== index) {
-      result = false;
-    }
-  });
-  /* проверяем на количество */
-  if(hashtagsMassive.length > 4) {
-    result = false;
   }
   return result;
 }
+function validateRepeats (value) {
+  /* проверяем на дубликаты */
+  const hashtagsMassive = value.split(' ');
+  let result = true;
+  hashtagsMassive.filter((number, index, numbers) => {
+    if(numbers.indexOf(number) !== index) {
+      imageOverlay.querySelector('#upload-submit').disabled = true;
+      result = false;
+    } else {
+      imageOverlay.querySelector('#upload-submit').disabled = false;
+    }
+  });
+  return result;
+}
 
+function validateNumber (value) {
+  /* проверяем на дубликаты */
+  const hashtagsMassive = value.split(' ');
+  let result = true;
+  /* проверяем на количество */
+  if(hashtagsMassive.length > 4) {
+    result = false;
+    imageOverlay.querySelector('#upload-submit').disabled = true;
+  } else {
+    imageOverlay.querySelector('#upload-submit').disabled = false;
+  }
+  return result;
+}
 /* Блокировка кнопки отправки
-imageOverlay.querySelector('#upload-submit').disabled = true */
-/* textUpload.addEventListener('submit', (evt) => {
+imageOverlay.querySelector('#upload-submit').disabled = true
+textUpload.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();
 }); */
@@ -59,10 +84,30 @@ imageOverlay.querySelector('#upload-submit').disabled = true */
 /* добавляем валидатор хэштега */
 pristine.addValidator(
   textUpload.querySelector('.text__hashtags'),
-  validateHashtags,
+  validateHashtag,
   'Хэштег не может быть длиннее 20 символов и содержать пробелы, спецсимволы, символы пунктуации и эмодзи',
-  1,
+  0,
+  true
+);
+pristine.addValidator(
+  textUpload.querySelector('.text__hashtags'),
+  validateRepeats,
+  'Хэштеги повторяются',
+  2,
   true
 );
 
+pristine.addValidator(
+  textUpload.querySelector('.text__hashtags'),
+  validateNumber,
+  'Превышено количество хэштегов',
+  3,
+  true
+);
+
+/* добавляем обработчик на кнопку */
+submitButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+
+});
 export { imageUploader };

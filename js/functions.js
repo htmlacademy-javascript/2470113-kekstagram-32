@@ -63,6 +63,7 @@ returnWorkDay('08:00', '14:30', '14:00', 90); // false
 returnWorkDay('14:00', '17:30', '08:0', 90); // false
 returnWorkDay('8:00', '17:30', '08:00', 900); // false
 numberReturn(1.5); */ // 15 */ */
+numberReturn(1.5); // 15 */
 
 /* function returnWorkDay (dayStart, dayFin, meetingStart, meetingLength) {
 /* бьем аргументы на секции по двоеточию */

@@ -48,24 +48,21 @@ numberReturn(1.5); // 15
 
 function returnWorkDay (dayStart, dayFin, meetingStart, meetingLength) {
   /* переводим в минуты от полуночи*/
-  const workDayStart = Number(dayStart.split(':')[0]) * 60 + Number(dayStart.split(':')[1]);
+/*  const workDayStart = Number(dayStart.split(':')[0]) * 60 + Number(dayStart.split(':')[1]);
   const workDayFin = Number(dayFin.split(':')[0]) * 60 + Number(dayFin.split(':')[1]);
   const meetingTimeStart = Number(meetingStart.split(':')[0]) * 60 + Number(meetingStart.split(':')[1]);
   const meetingTimeEnd = meetingTimeStart + meetingLength;
 
   /* считаем */
-  return (workDayStart <= meetingTimeStart)
+/* return (workDayStart <= meetingTimeStart)
     ? (workDayFin >= meetingTimeEnd)
-    : false;
-}
+    : false; */
 
-returnWorkDay('08:00', '17:30', '14:00', 90); // true
-returnWorkDay('8:0', '10:0', '8:0', 120); // true
+/* returnWorkDay('8:0', '10:0', '8:0', 120); // true
 returnWorkDay('08:00', '14:30', '14:00', 90); // false
 returnWorkDay('14:00', '17:30', '08:0', 90); // false
 returnWorkDay('8:00', '17:30', '08:00', 900); // false
-=======
-numberReturn(1.5); // 15 */
+numberReturn(1.5); */ // 15 */ */
 
 /* function returnWorkDay (dayStart, dayFin, meetingStart, meetingLength) {
 /* бьем аргументы на секции по двоеточию */

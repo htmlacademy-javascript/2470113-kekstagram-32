@@ -1,3 +1,6 @@
+import { getErrorMessage, getSuccessMessage } from './errors';
+import { closeUpload } from './closeOverlay.js';
+const uploadForm = document.querySelector('.img-upload__form');
 const imageUploader = document.querySelector('#upload-file');
 const imageOverlay = document.querySelector('.img-upload__overlay');
 const textUpload = imageOverlay.querySelector('.img-upload__text');
@@ -108,6 +111,28 @@ pristine.addValidator(
 /* добавляем обработчик на кнопку */
 submitButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-
+  const formData = new FormData (uploadForm);
+  const request = new XMLHttpRequest();
+  request.open('POST', 'https://32.javascript.htmlacademy.pro/kekstagram');
+  request.onload = function () {
+    if (request.status === 200) {
+      getSuccessMessage();
+      closeUpload();
+    } else {
+      getErrorMessage();
+    }
+  };
+  request.send(formData);
 });
 export { imageUploader };
+
+/* const formData = new FormData (uploadForm); */
+/* const request = new XMLHttpRequest();
+  request.open('POST', 'https://32.javascript.htmlacademy.pro/kekstagram');
+  request.send(formData); */
+/* console.log(formData); */
+
+/* const request = new XMLHttpRequest();
+request.open('POST', 'submitform.php');
+request.send(new FormData(uploadForm));
+console.log(new FormData(uploadForm)); */

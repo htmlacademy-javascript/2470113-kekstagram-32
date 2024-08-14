@@ -1,5 +1,4 @@
 import {photoDB} from './main.js';
-import {photoDB} from './main.js';
 import { PHOTOS_LIST, BIG_PICTURE } from './data.js';
 import { clearCommentsList } from './clearCommentsList.js';
 import { commentsGenerating } from './commentsLoading.js';
@@ -38,7 +37,6 @@ function onPhotosListClick (evt) {
       commentIndex = commentsGenerating(commentIndex, evt.target.id);
       BIG_PICTURE.querySelector('.social__comment-shown-count').textContent = commentIndex;
       /* скрываем «загрузить еще», если все комменты видны */
-      if(commentIndex >= photoDB[evt.target.id].comments.length) {
       if(commentIndex >= photoDB[evt.target.id].comments.length) {
         BIG_PICTURE.querySelector('.social__comments-loader').classList.add('hidden');
       }

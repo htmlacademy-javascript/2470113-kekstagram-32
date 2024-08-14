@@ -1,5 +1,6 @@
-import {addPhotosList } from './generatePhotos.js';
+import { addPhotosList } from './generatePhotos.js';
 import { photoDB } from './main.js';
+
 const filtersForm = document.querySelector('.img-filters__form');
 const buttonDefault = document.querySelector('#filter-default');
 const buttonRandom = document.querySelector('#filter-random');
@@ -17,8 +18,7 @@ buttonDefault.addEventListener('click', () => {
   addPhotosList(photoDB);
 });
 
-buttonRandom.addEventListener('click', (evt) => {
-  evt.preventDefault();
+buttonRandom.addEventListener('click', () => {
 
   while(previews.children[2]) {
     previews.lastChild.remove();
@@ -28,6 +28,7 @@ buttonRandom.addEventListener('click', (evt) => {
     child.classList.remove('img-filters__button--active');
   }
   buttonRandom.classList.add('img-filters__button--active');
+
   const tempPhotos = photoDB.map((element) => element);
   tempPhotos.sort(() => Math.random() - 0.5);
   const randomPhotos = tempPhotos.slice(0, 10);

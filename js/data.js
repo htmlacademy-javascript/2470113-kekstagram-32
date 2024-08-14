@@ -34,5 +34,6 @@ const PHOTOS_LIST = document.querySelector('section.pictures');
 const BIG_PICTURE = document.querySelector('.big-picture');
 const COMMENT_TEMPLATE = BIG_PICTURE.querySelector('.social__comment');
 const COMMENTS_LIST = BIG_PICTURE.querySelector('.social__comments');
+const imageUploader = document.querySelector('#upload-file');
 
-export {PHOTO_NUMBER, MAX_COMMENT_NUMBER, PHOTO_DESCRIPTIONS, COMMENT_TEXTS, NAMES, TEMPLATE, PHOTOS_LIST, BIG_PICTURE, COMMENT_TEMPLATE, COMMENTS_LIST};
+export {PHOTO_NUMBER, MAX_COMMENT_NUMBER, PHOTO_DESCRIPTIONS, COMMENT_TEXTS, NAMES, TEMPLATE, PHOTOS_LIST, BIG_PICTURE, COMMENT_TEMPLATE, COMMENTS_LIST, imageUploader};

@@ -1,4 +1,5 @@
 import { photoDB } from './main.js';
+import { photoDB } from './createPhotoDB';
 import { BIG_PICTURE, COMMENT_TEMPLATE } from './data';
 
 function commentsGenerating (commentIndex, indexDB) {

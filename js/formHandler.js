@@ -21,7 +21,7 @@ imageUploader.addEventListener('change', () => {
   }
 });
 
-function sendFormData () {
+function sendFormData (evt) {
   submitButton.disabled = true;
   sendData(new FormData(evt.target))
     .then(getSuccessMessage())

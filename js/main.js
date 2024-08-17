@@ -1,31 +1,26 @@
-import './getRandomInt.js';
-import './createRandomId.js';
-import './createComment.js';
-import './createPhotoDB.js';
 import './data.js';
-import './generatePhotos.js';
+import './addPhotosList.js';
 import './displayBigPicture.js';
 import './clearCommentsList.js';
 import './commentsLoading.js';
+import './validator.js';
 import './formHandler.js';
 import './closeOverlay.js';
 import './addScale.js';
 import './addSlider.js';
 import './photoSort.js';
-import { getDataErrorMessage } from './errors';
-import {addPhotosList } from './generatePhotos';
+import { getSuccessMessage } from './messages.js';
+import {sendFormData} from './formHandler.js';
 
-let photoDB = {};
-fetch('https://32.javascript.htmlacademy.pro/kekstagram/data')
-  .then((response) => response.json())
-  .then((photos) => {
-    photoDB = photos;
-    document.querySelector('.img-filters').classList.remove('img-filters--inactive');
-    addPhotosList(photoDB);
-    return photoDB;
-  })
-  .catch((err) => {
-    getDataErrorMessage(err);
-  });
+const RERENDER_DELAY = 500;
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
 
-export {photoDB};
+sendFormData(getSuccessMessage);
+
+export {RERENDER_DELAY, debounce};

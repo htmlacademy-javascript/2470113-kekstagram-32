@@ -9,8 +9,6 @@ import './closeOverlay.js';
 import './addScale.js';
 import './addSlider.js';
 import './photoSort.js';
-import { getSuccessMessage } from './messages.js';
-import {sendFormData} from './formHandler.js';
 
 const RERENDER_DELAY = 500;
 const debounce = (callback, timeoutDelay) => {
@@ -20,7 +18,5 @@ const debounce = (callback, timeoutDelay) => {
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
-
-sendFormData(getSuccessMessage);
 
 export {RERENDER_DELAY, debounce};

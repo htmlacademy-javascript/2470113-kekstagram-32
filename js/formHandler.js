@@ -1,14 +1,15 @@
 import { sendData } from './api';
 import { getErrorMessage, getSuccessMessage } from './messages';
-const imageUploader = document.querySelector('#upload-file');
 const imageOverlay = document.querySelector('.img-upload__overlay');
+const imageFileUploader = document.querySelector('#upload-file');
+const form = document.querySelector('.img-upload__form');
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const effectPreviews = imageOverlay.querySelectorAll('.effects__preview');
-const submitButton = imageUploader.querySelector('#upload-submit');
+const submitButton = document.querySelector('#upload-submit');
 
 /* Проверяем файл и подставляем его в оверлей */
-imageUploader.addEventListener('change', () => {
-  const file = imageUploader.files[0];
+imageFileUploader.addEventListener('change', () => {
+  const file = imageFileUploader.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if(matches) {
@@ -16,25 +17,28 @@ imageUploader.addEventListener('change', () => {
     document.body.classList.add('modal-open');
     imageOverlay.querySelector('img').src = URL.createObjectURL(file);
     for (const effectPreview of effectPreviews) {
-      effectPreview.style.setProperty('background-image',`url(${ URL.createObjectURL(file) })`);
+      effectPreview.style.setProperty(
+        'background-image',
+        `url(${ URL.createObjectURL(file) })`
+      );
     }
   }
 });
-
-function sendFormData (evt) {
+/* функция отправки данных */
+function sendFormData () {
   submitButton.disabled = true;
-  sendData(new FormData(evt.target))
-    .then(getSuccessMessage())
-    .catch(getErrorMessage())
-    .finally(submitButton.disabled = false);
+  sendData(new FormData(form))
+    .then(getSuccessMessage)
+    .catch(getErrorMessage)
+    .finally((submitButton.disabled = false));
 }
 
 /* добавляем обработчик и отправку запроса */
-imageUploader.addEventListener('submit', (evt) => {
+form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   sendFormData();
 });
 
 
-export {sendFormData, imageUploader};
+export {sendFormData, imageFileUploader};
 

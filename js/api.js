@@ -1,4 +1,4 @@
-import { getErrorMessage, getDataErrorMessage } from './messages';
+import { getDataErrorMessage } from './messages';
 import { addPhotosList } from './addPhotosList';
 const SERVER_ADDRESS = 'https://32.javascript.htmlacademy.pro/kekstagram';
 const Route = {
@@ -18,20 +18,10 @@ let photosData = fetch(SERVER_ADDRESS + Route.GET_DATA)
     getDataErrorMessage(err);
   });
 
-const sendData = (body) => fetch(SERVER_ADDRESS + Route.SEND_DATA,
-  {
-    method: 'POST',
-    body,
-  },
-)
-  .then((response) => {
-    if (!response.ok) {
-      getErrorMessage();
-    }
-  })
-  .catch(() => {
-    getErrorMessage();
-  })
-  .catch(getErrorMessage);
-
+const sendData = (body) =>
+  fetch(SERVER_ADDRESS + Route.SEND_DATA,
+    {
+      method: 'POST',
+      body,
+    });
 export {photosData, sendData};

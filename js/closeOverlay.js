@@ -1,3 +1,5 @@
+import { clearCommentsList } from './clearCommentsList';
+import { addCommentsLoader } from './commentsLoading';
 const imageUploaderNode = document.querySelector('#upload-file');
 const bigPictureNode = document.querySelector('.big-picture');
 const uploadOverlayNode = document.querySelector('.img-upload__overlay');
@@ -10,6 +12,7 @@ const closeButtonElement = bigPictureNode.querySelector('.cancel');
 closeButtonElement.addEventListener('click', () => {
   bigPictureNode.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  bigPictureNode.querySelector('.social__comments-loader').removeEventListener('click',addCommentsLoader);
 });
 
 function resetSettings() {
@@ -22,15 +25,18 @@ function resetSettings() {
   imageElement.style.setProperty('filter', 'none');
   document.querySelector('.img-upload__effect-level').classList.add('hidden');
 }
+
 /* добавляем закрытие всех окон по Esc */
 function addCloseEsc (evt) {
   if (evt.keyCode === 27) {
     /* проверяем, не в фокусе ли поля тегов и комментария */
     if (document.activeElement !== document.querySelector('.text__hashtags') && document.activeElement !== document.querySelector('.text__description')) {
-      uploadOverlayNode.classList.add('hidden');
       resetSettings();
+      uploadOverlayNode.classList.add('hidden');
+      clearCommentsList();
       bigPictureNode.classList.add('hidden');
       document.body.classList.remove('modal-open');
+      bigPictureNode.querySelector('.social__comments-loader').removeEventListener('click', addCommentsLoader);
     }
   }
 }

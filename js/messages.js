@@ -22,9 +22,9 @@ function getErrorMessage () {
 }
 
 function getSuccessMessage () {
-  const successMessage = successTemplate.cloneNode(true);
-  successMessage.id = 'successMessage';
-  document.body.appendChild(successMessage);
+/*   const successMessage = successTemplate.cloneNode(true);
+  successMessage.id = 'successMessage'; */
+  document.body.appendChild(successTemplate.cloneNode(true));
   /* добавляем кнопку закрытия для модального окна успех */
   const closeSuccess = document.querySelector('.success__button');
   closeSuccess.addEventListener('click', () =>{

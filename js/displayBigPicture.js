@@ -34,7 +34,9 @@ function onPhotosListClick (evt) {
     }
 
     /* добавляем обработчик кнопке «загрузить еще». Непонятно, как передать в него photoID из функции */
-    bigPictureNode.querySelector('.social__comments-loader').addEventListener('click', addCommentsLoader);
+    bigPictureNode.querySelector('.social__comments-loader').addEventListener('click', (commentIndex, photoID) => {
+      addCommentsLoader();
+    });
   }
 }
 /* добавляем на все миниатюры страницы */

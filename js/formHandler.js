@@ -40,5 +40,5 @@ form.addEventListener('submit', (evt) => {
 });
 
 
-export {sendFormData, imageFileUploader};
+export {imageFileUploader};
 

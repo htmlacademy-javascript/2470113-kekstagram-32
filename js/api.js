@@ -24,4 +24,5 @@ const sendData = (body) =>
       method: 'POST',
       body,
     });
+
 export {photosData, sendData};

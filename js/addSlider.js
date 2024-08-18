@@ -27,7 +27,7 @@ function setFilter () {
 
 /* записываем значение слайдера */
 sliderElement.noUiSlider.on('update', () => {
-  valueElement.setAttribute('value', sliderElement.noUiSlider.get());
+  valueElement.setAttribute('value', +sliderElement.noUiSlider.get());
   setFilter ();
 });
 

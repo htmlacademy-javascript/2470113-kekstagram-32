@@ -1,5 +1,6 @@
 import { sendData } from './api';
 import { getErrorMessage, getSuccessMessage } from './messages';
+import {resetSettings} from './closeOverlay.js';
 const imageOverlay = document.querySelector('.img-upload__overlay');
 const imageFileUploader = document.querySelector('#upload-file');
 const form = document.querySelector('.img-upload__form');
@@ -28,7 +29,7 @@ imageFileUploader.addEventListener('change', () => {
 function sendFormData () {
   submitButton.disabled = true;
   sendData(new FormData(form))
-    .then(getSuccessMessage)
+    .then(getSuccessMessage, resetSettings)
     .catch(getErrorMessage)
     .finally((submitButton.disabled = false));
 }

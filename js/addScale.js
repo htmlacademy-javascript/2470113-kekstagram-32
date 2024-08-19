@@ -19,9 +19,7 @@ const onScaleClick = function(evt) {
     scaleCoefficient = scaleCoefficient + SCALE_STEP;
     imageElement.style.setProperty('transform', `scale(${ scaleCoefficient })`);
     scaleValueElement.setAttribute('value', `${scaleCoefficient * 100 }%`);
-    return scaleCoefficient;
-
   }
-  return scaleCoefficient;
 };
-scaleFieldNode.addEventListener('click',onScaleClick);
+scaleFieldNode.addEventListener('click', onScaleClick);
+export {scaleCoefficient, onScaleClick};

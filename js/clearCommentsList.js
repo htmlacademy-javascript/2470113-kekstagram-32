@@ -1,9 +1,10 @@
-import { COMMENTS_LIST } from './data';
+const bigPictureNode = document.querySelector('.big-picture');
+const commentsListNode = bigPictureNode.querySelector('.social__comments');
 
 function clearCommentsList () {
   /* удаляем старые комменты перед генерацией новых */
-  while (COMMENTS_LIST.firstChild) {
-    COMMENTS_LIST.removeChild(COMMENTS_LIST.firstChild);
+  while (commentsListNode.firstChild) {
+    commentsListNode.removeChild(commentsListNode.firstChild);
   }
 }
 

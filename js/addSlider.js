@@ -1,13 +1,8 @@
 /* слайдер эффектов */
-const image = document.querySelector('.img-upload__preview img');
+const imageElement = document.querySelector('.img-upload__preview img');
 const sliderElement = document.querySelector('.effect-level__slider');
 const valueElement = document.querySelector('.effect-level__value');
-const originalEffect = document.querySelector('#effect-none');
-const chromeEffect = document.querySelector('#effect-chrome');
-const sepiaEffect = document.querySelector('#effect-sepia');
-const marvinEffect = document.querySelector('#effect-marvin');
-const phobosEffect = document.querySelector('#effect-phobos');
-const heatEffect = document.querySelector('#effect-heat');
+const effectsListNode = document.querySelector('.effects__list');
 let filterName;
 let measureUnit;
 
@@ -15,111 +10,106 @@ let measureUnit;
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
-    max: 100,
+    max: 1,
   },
-  start: 100,
-  step: 1,
+  start: 1,
+  step: 0.1,
   connect: 'lower',
 });
 
 /* прячем слайдер по умолчанию */
 document.querySelector('.img-upload__effect-level').classList.add('hidden');
+
 /* Задаем применение фильтра на изображение */
-image.style.filter = `${filterName }(${ valueElement.value }${measureUnit })`;
+function setFilter () {
+  imageElement.style.setProperty('filter',`${filterName }(${ valueElement.value }${ measureUnit })`);
+}
 
 /* записываем значение слайдера */
 sliderElement.noUiSlider.on('update', () => {
-  valueElement.value = sliderElement.noUiSlider.get();
-  image.style.filter = `${filterName }(${ valueElement.value }${measureUnit })`;
+  valueElement.setAttribute('value', +sliderElement.noUiSlider.get());
+  setFilter ();
 });
 
-/* отменяем все эффекты и прячем слайдер */
-originalEffect.addEventListener('change', (evt) => {
-  if (evt.target.checked) {
-    document.querySelector('.img-upload__effect-level').classList.add('hidden');
-    image.style.filter = 'none';
+const onEffectClick = function (evt) {
+  document.querySelector('.img-upload__effect-level').classList.remove('hidden');
+  switch(evt.target.id) {
+    case ('effect-chrome'): {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 1
+        },
+        step: 0.1
+      });
+      sliderElement.noUiSlider.set(1);
+      filterName = 'grayscale';
+      measureUnit = '';
+      setFilter ();
+      break;
+    }
+    case('effect-sepia'): {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 1
+        },
+        step: 0.1
+      });
+      sliderElement.noUiSlider.set(1);
+      filterName = 'sepia';
+      measureUnit = '';
+      setFilter ();
+      break;
+    }
+    case('effect-marvin'): {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 100
+        },
+        step: 1
+      });
+      sliderElement.noUiSlider.set(100);
+      filterName = 'invert';
+      measureUnit = '%';
+      setFilter ();
+      break;
+    }
+    case('effect-phobos'): {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 1,
+          max: 3
+        },
+        step: 0.1
+      });
+      sliderElement.noUiSlider.set(3);
+      filterName = 'blur';
+      measureUnit = 'px';
+      setFilter ();
+      break;
+    }
+    case('effect-heat'): {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 1,
+          max: 3
+        },
+        step: 0.1
+      });
+      sliderElement.noUiSlider.set(3);
+      filterName = 'brightness';
+      measureUnit = '';
+      setFilter ();
+      break;
+    }
+    default: {
+      document.querySelector('.img-upload__effect-level').classList.add('hidden');
+      imageElement.style.filter = 'none';
+      break;
+    }
   }
-});
+};
 
-/* эффект Хром и его слайдер */
-chromeEffect.addEventListener('change', (evt) => {
-  if (evt.target.checked) {
-    document.querySelector('.img-upload__effect-level').classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1
-      },
-      step: 0.1
-    });
-    sliderElement.noUiSlider.set(1);
-    filterName = 'grayscale';
-    measureUnit = '';
-    image.style.filter = `${filterName }(${ valueElement.value }${measureUnit })`;
-  }
-});
-sepiaEffect.addEventListener('change', (evt) => {
-  if (evt.target.checked) {
-    document.querySelector('.img-upload__effect-level').classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1
-      },
-      step: 0.1
-    });
-    sliderElement.noUiSlider.set(1);
-    filterName = 'sepia';
-    measureUnit = '';
-    image.style.filter = `${filterName }(${ valueElement.value }${measureUnit })`;
-  }
-});
-marvinEffect.addEventListener('change', (evt) => {
-  if (evt.target.checked) {
-    document.querySelector('.img-upload__effect-level').classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 100
-      },
-      step: 1
-    });
-    sliderElement.noUiSlider.set(100);
-    filterName = 'invert';
-    measureUnit = '%';
-    image.style.filter = `${filterName }(${ valueElement.value }${measureUnit })`;
-  }
-});
-phobosEffect.addEventListener('change', (evt) => {
-  if (evt.target.checked) {
-    document.querySelector('.img-upload__effect-level').classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 1,
-        max: 3
-      },
-      step: 0.1
-    });
-    sliderElement.noUiSlider.set(3);
-    filterName = 'blur';
-    measureUnit = 'px';
-    image.style.filter = `${filterName }(${ valueElement.value }${measureUnit })`;
-  }
-});
-heatEffect.addEventListener('change', (evt) => {
-  if (evt.target.checked) {
-    document.querySelector('.img-upload__effect-level').classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 1,
-        max: 3
-      },
-      step: 0.1
-    });
-    sliderElement.noUiSlider.set(3);
-    filterName = 'brightness';
-    measureUnit = '';
-    image.style.filter = `${filterName }(${ valueElement.value }${measureUnit })`;
-  }
-}
-);
+effectsListNode.addEventListener('click',onEffectClick);

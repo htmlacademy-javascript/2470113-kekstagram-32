@@ -5,30 +5,30 @@ const dataErrorTemplate = document.querySelector('#data-error').content;
 function getDataErrorMessage () {
   const dataErrorMessage = dataErrorTemplate.cloneNode(true);
   dataErrorMessage.id = 'errorMessage';
-  document.querySelector('body').appendChild(dataErrorMessage);
+  document.body.appendChild(dataErrorMessage);
   setTimeout (() => {
-    document.querySelector('body').removeChild(document.querySelector('.data-error'));
+    document.body.removeChild(document.querySelector('.data-error'));
   }, 5000);
 }
 
 function getErrorMessage () {
   const errorMessage = errorTemplate.cloneNode(true);
   errorMessage.id = 'errorMessage';
-  document.querySelector('body').appendChild(errorMessage);
+  document.body.appendChild(errorMessage);
   const closeError = document.querySelector('.error__button');
   closeError.addEventListener('click', () =>{
-    document.querySelector('body').removeChild(document.querySelector('.error'));
+    document.body.removeChild(document.querySelector('.error'));
   });
 }
 
 function getSuccessMessage () {
-  const successMessage = successTemplate.cloneNode(true);
-  successMessage.id = 'successMessage';
-  document.querySelector('body').appendChild(successMessage);
+/*   const successMessage = successTemplate.cloneNode(true);
+  successMessage.id = 'successMessage'; */
+  document.body.appendChild(successTemplate.cloneNode(true));
   /* добавляем кнопку закрытия для модального окна успех */
   const closeSuccess = document.querySelector('.success__button');
   closeSuccess.addEventListener('click', () =>{
-    document.querySelector('body').removeChild(document.querySelector('.success'));
+    document.body.removeChild(document.querySelector('.success'));
   });
 
 }

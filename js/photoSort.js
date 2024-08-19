@@ -1,49 +1,48 @@
-import { addPhotosList } from './generatePhotos.js';
-import { photoDB } from './main.js';
+import { addPhotosList } from './addPhotosList.js';
+import { photosData } from './api.js';
 
-const filtersForm = document.querySelector('.img-filters__form');
-const buttonDefault = document.querySelector('#filter-default');
-const buttonRandom = document.querySelector('#filter-random');
-const buttonDiscussed = document.querySelector('#filter-discussed');
-const previews = document.querySelector('.pictures');
+/* устраняем дребезг */
+const RERENDER_DELAY = 500;
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
 
-buttonDefault.addEventListener('click', () => {
-  for(const child of filtersForm.children) {
+const filtersFormNode = document.querySelector('.img-filters__form');
+const defaultButtonElement = document.querySelector('#filter-default');
+const randomButtonElement = document.querySelector('#filter-random');
+const DiscussedButtonElement = document.querySelector('#filter-discussed');
+const previewsNode = document.querySelector('.pictures');
+
+const onButtonsClick = function(evt) {
+  /* сбрасываем состояние active */
+  for(const child of filtersFormNode.children) {
     child.classList.remove('img-filters__button--active');
   }
-  while(previews.children[2]) {
-    previews.lastChild.remove();
+  /* удаляем все добавленные ранее превью */
+  while(previewsNode.children[2]) {
+    previewsNode.lastChild.remove();
   }
-  buttonDefault.classList.add('img-filters__button--active');
-  addPhotosList(photoDB);
-});
-
-buttonRandom.addEventListener('click', () => {
-
-  while(previews.children[2]) {
-    previews.lastChild.remove();
+  /* проверяем, какая кнопка нажата */
+  if (evt.target.id === 'filter-default') {
+    defaultButtonElement.classList.add('img-filters__button--active');
+    addPhotosList(photosData);
   }
-
-  for(const child of filtersForm.children) {
-    child.classList.remove('img-filters__button--active');
+  if(evt.target.id === 'filter-random') {
+    randomButtonElement.classList.add('img-filters__button--active');
+    /* создаем копию массива с фотками, перемешиваем и обрезаем */
+    const tempPhotos = photosData.map((element) => element).sort(() => Math.random() - 0.5).slice(0, 10);
+    addPhotosList(tempPhotos);
   }
-  buttonRandom.classList.add('img-filters__button--active');
-
-  const tempPhotos = photoDB.map((element) => element);
-  tempPhotos.sort(() => Math.random() - 0.5);
-  const randomPhotos = tempPhotos.slice(0, 10);
-  addPhotosList(randomPhotos);
-});
-
-buttonDiscussed.addEventListener('click', () => {
-  while(previews.children[2]) {
-    previews.lastChild.remove();
+  if(evt.target.id === 'filter-discussed') {
+    DiscussedButtonElement.classList.add('img-filters__button--active');
+    /* создаем массив с сортировкой по длине массива комментов */
+    const discussedPhotos = photosData.map((element) => element).sort((a, b) => a.comments.length - b.comments.length).reverse();
+    addPhotosList(discussedPhotos);
   }
-
-  for(const child of filtersForm.children) {
-    child.classList.remove('img-filters__button--active');
-  }
-  buttonDiscussed.classList.add('img-filters__button--active');
-  const discussedPhotos = photoDB.map((element) => element).sort((a, b) => a.comments.length - b.comments.length).reverse();
-  addPhotosList(discussedPhotos);
-});
+};
+/* приклеиваем обработчик с задержкой 500мс */
+filtersFormNode.addEventListener('click', debounce(onButtonsClick, RERENDER_DELAY));

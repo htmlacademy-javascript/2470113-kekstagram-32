@@ -1,30 +1,56 @@
-import { photoDB } from './main.js';
-import { BIG_PICTURE, COMMENT_TEMPLATE } from './data';
+import { photosData } from './api.js';
+const bigPictureNode = document.querySelector('.big-picture');
+const commentTemplate = bigPictureNode.querySelector('.social__comment');
+const commentsListNode = bigPictureNode.querySelector('.social__comments');
+const COMMENTS_QUANTITY = 5;
+import { photoID } from './displayBigPicture.js';
 
-function commentsGenerating (commentIndex, indexDB) {
-  /* проверяем, меньше ли 5 количество оставшихся комментов */
-  let commentNumber = commentIndex;
-  if(photoDB[indexDB].comments.length - commentIndex <= 5) {
-    for (let i = 0; i < photoDB[indexDB].comments.length - commentIndex; i++) {
-      const newComment = COMMENT_TEMPLATE.cloneNode(true);
-      newComment.querySelector('.social__picture').src = photoDB[indexDB].comments[commentIndex + i].avatar;
-      newComment.querySelector('.social__picture').alt = photoDB[indexDB].comments[commentIndex + i].name;
-      newComment.querySelector('.social__text').textContent = photoDB[indexDB].comments[commentIndex + i].message;
-      BIG_PICTURE.querySelector('.social__comments').appendChild(newComment);
-      commentNumber++;
-    }
-    return commentNumber;
+function commentsGenerating () {
+  /* Используем коллекции, проверяем, сколько комментов осталось загрузить */
+  let commentsNumber;
+  if(photosData[photoID].comments.length < COMMENTS_QUANTITY) {
+    commentsNumber = photosData[photoID].comments.length;
   } else {
-    for (let i = 0; i < 5; i++) {
-      const newComment = COMMENT_TEMPLATE.cloneNode(true);
-      newComment.querySelector('.social__picture').src = photoDB[indexDB].comments[commentIndex + i].avatar;
-      newComment.querySelector('.social__picture').alt = photoDB[indexDB].comments[commentIndex + i].name;
-      newComment.querySelector('.social__text').textContent = photoDB[indexDB].comments[commentIndex + i].message;
-      BIG_PICTURE.querySelector('.social__comments').appendChild(newComment);
-      commentNumber++;
-    }
-    return commentNumber;
+    commentsNumber = COMMENTS_QUANTITY;
+  }
+  for (let i = 0; i < commentsNumber; i++) {
+    const newComment = commentTemplate.cloneNode(true);
+    newComment.querySelector('.social__picture').src = photosData[photoID].comments[i].avatar;
+    newComment.querySelector('.social__picture').alt = photosData[photoID].comments[i].name;
+    newComment.querySelector('.social__text').textContent = photosData[photoID].comments[i].message;
+    newComment.id = photosData[photoID].comments[i].id;
+    bigPictureNode.querySelector('.social__comments').appendChild(newComment);
   }
 }
 
-export {commentsGenerating};
+function addCommentsLoader () {
+  bigPictureNode.querySelector('.social__comment-shown-count').textContent = commentsListNode.children.length;
+  let commentsNumber;
+  if(photosData[photoID].comments.length - commentsListNode.children.length < COMMENTS_QUANTITY) {
+    commentsNumber = photosData[photoID].comments.length - commentsListNode.children.length;
+  } else {
+    commentsNumber = COMMENTS_QUANTITY;
+  }
+  const commentsLoaded = commentsListNode.children.length;
+  for (let i = 0; i < commentsNumber; i++) {
+    const newComment = commentTemplate.cloneNode(true);
+    newComment.querySelector('.social__picture').src = photosData[photoID].comments[commentsLoaded + i].avatar;
+    newComment.querySelector('.social__picture').alt = photosData[photoID].comments[commentsLoaded + i].name;
+    newComment.querySelector('.social__text').textContent = photosData[photoID].comments[commentsLoaded + i].message;
+    newComment.id = photosData[photoID].comments[commentsLoaded + i].id;
+    bigPictureNode.querySelector('.social__comments').appendChild(newComment);
+  }
+  bigPictureNode.querySelector('.social__comment-shown-count').textContent = commentsListNode.children.length;
+
+  /* скрываем «загрузить еще», если все комменты видны */
+  if(commentsListNode.children.length === photosData[photoID].comments.length) {
+    bigPictureNode.querySelector('.social__comments-loader').classList.add('hidden');
+  } else {
+    bigPictureNode.querySelector('.social__comments-loader').classList.remove('hidden');
+  }
+}
+
+/* добавляем обработчик кнопке «загрузить еще»*/
+bigPictureNode.querySelector('.social__comments-loader').addEventListener('click', addCommentsLoader);
+
+export {COMMENTS_QUANTITY, commentsGenerating, addCommentsLoader};
